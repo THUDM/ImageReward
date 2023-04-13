@@ -11,6 +11,7 @@ ImageReward is the first general-purpose text-to-image human preference RM, whic
 It outperforms existing text-image scoring methods, such as CLIP (by 38.6%), Aesthetic (by 39.6%), and BLIP (by 31.6%), in terms of understanding human preference in text-to-image synthesis. Try `image-reward` package in only 3 lines of code!
 
 ```python
+# pip install image-reward
 import ImageReward as RM
 model = RM.load("ImageReward-v1.0")
 
