@@ -6,10 +6,8 @@
 
 **ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation**
 
-ImageReward is the first general-purpose text-to-image human preference RM which is trained on in total 137k pairs of
-expert comparisons, based on text prompts and corresponding model outputs from DiffusionDB. We demonstrate that
-ImageReward outperforms existing text-image scoring methods, such as CLIP, Aesthetic, and BLIP, in terms of
-understanding human preference in text-to-image synthesis through extensive analysis and experiments.
+ImageReward is the first general-purpose text-to-image human preference RM, which is trained on in total **137k pairs of expert comparisons**. 
+It outperforms existing text-image scoring methods, such as CLIP (by 38.6%), Aesthetic (by 39.6%), and BLIP (by 31.6%), in terms of understanding human preference in text-to-image synthesis.
 
 <p align="center">
     <img src="figures/ImageReward.png" width="700px">
