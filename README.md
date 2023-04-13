@@ -15,7 +15,7 @@ It outperforms existing text-image scoring methods, such as CLIP (by 38.6%), Aes
 import ImageReward as RM
 model = RM.load("ImageReward-v1.0")
 
-rewards = model.score("<prompt>", ["<img1_path>", "<img2_path", ...])
+rewards = model.score("<prompt>", ["<img1_path>", "<img2_path>", ...])
 ```
 
 <p align="center">
