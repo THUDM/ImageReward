@@ -18,6 +18,8 @@ model = RM.load("ImageReward-v1.0")
 rewards = model.score("<prompt>", ["<img1_path>", "<img2_path>", ...])
 ```
 
+If you find `ImageReward`'s open-source effort useful, please 🌟 us to encourage our following developement!
+
 <p align="center">
     <img src="figures/ImageReward.png" width="700px">
 </p>
