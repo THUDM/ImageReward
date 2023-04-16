@@ -3,7 +3,7 @@ import os
 import pkg_resources
 from pathlib import Path
 
-long_description = (Path(__file__).parent / "README-pypi.md").read_text()
+long_description = (Path(__file__).parent / "README.md").read_text()
 DESCRIPTION = 'ImageReward'
 
 # 配置
@@ -11,21 +11,22 @@ setup(
         name="image-reward", 
         py_modules = ["ImageReward"],
         version="1.0",
-        author="xujz18",
+        author="Jiazheng Xu, et al.",
         author_email="<xjz22@mails.tsinghua.edu.cn>",
+        url="https://github.com/THUDM/ImageReward",
         description=DESCRIPTION,
         long_description=long_description,
         long_description_content_type='text/markdown',
         packages=find_packages(exclude=["tests*"]),
         install_requires=[
-            str(r)
-            for r in pkg_resources.parse_requirements(
-                open(os.path.join(os.path.dirname(__file__), "requirements.txt"))
-            )
+            'timm==0.6.13',
+            'transformers==4.27.4',
+            'fairscale==0.4.13',
+            'huggingface_hub==0.13.4',
         ],
-        classifiers=[
-            "Programming Language :: Python :: 3",
-            "License :: OSI Approved :: MIT License",
-            "Operating System :: OS Independent",
+        dependency_links = [
+            "clip @ git+https://github.com/openai/CLIP.git",
         ],
+        python_requires=">=3.5",
+        license="Apache 2.0 license"
 )
