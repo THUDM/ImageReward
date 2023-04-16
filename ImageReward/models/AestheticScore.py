@@ -72,8 +72,9 @@ class AestheticScore(nn.Module):
             
         img_features = torch.cat(img_set, 0).float() # [image_num, feature_dim]
         rewards = self.mlp(img_features)
+        rewards = torch.squeeze(rewards)
         _, rank = torch.sort(rewards, dim=0, descending=True)
         _, indices = torch.sort(rank, dim=0)
-        indices = torch.squeeze(indices) + 1
+        indices = indices + 1
         
-        return indices.cpu().numpy().tolist(), rewards.cpu().numpy().tolist()
+        return indices.detach().cpu().numpy().tolist(), rewards.detach().cpu().numpy().tolist()

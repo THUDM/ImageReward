@@ -82,6 +82,10 @@ class ImageReward(nn.Module):
 
     def score(self, prompt, image_path):
         
+        if (type(image_path).__name__=='list'):
+            _, rewards = self.inference_rank(prompt, image_path)
+            return rewards
+            
         # text encode
         text_input = self.blip.tokenizer(prompt, padding='max_length', truncation=True, max_length=35, return_tensors="pt").to(self.device)
         
@@ -103,7 +107,7 @@ class ImageReward(nn.Module):
         rewards = self.mlp(txt_features)
         rewards = (rewards - self.mean) / self.std
         
-        return rewards.cpu().numpy().item()
+        return rewards.detach().cpu().numpy().item()
 
 
     def inference_rank(self, prompt, generations_list):
@@ -131,8 +135,9 @@ class ImageReward(nn.Module):
         txt_features = torch.cat(txt_set, 0).float() # [image_num, feature_dim]
         rewards = self.mlp(txt_features) # [image_num, 1]
         rewards = (rewards - self.mean) / self.std
+        rewards = torch.squeeze(rewards)
         _, rank = torch.sort(rewards, dim=0, descending=True)
         _, indices = torch.sort(rank, dim=0)
-        indices = torch.squeeze(indices) + 1
+        indices = indices + 1
         
-        return indices.cpu().numpy().tolist(), rewards.cpu().numpy().tolist()
+        return indices.detach().cpu().numpy().tolist(), rewards.detach().cpu().numpy().tolist()

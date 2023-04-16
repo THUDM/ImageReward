@@ -49,8 +49,9 @@ class CLIPScore(nn.Module):
         txt_features = torch.cat(txt_set, 0).float() # [image_num, feature_dim]
         img_features = torch.cat(img_set, 0).float() # [image_num, feature_dim]
         rewards = torch.sum(torch.mul(txt_features, img_features), dim=1, keepdim=True)
+        rewards = torch.squeeze(rewards)
         _, rank = torch.sort(rewards, dim=0, descending=True)
         _, indices = torch.sort(rank, dim=0)
-        indices = torch.squeeze(indices) + 1
+        indices = indices + 1
         
-        return indices.cpu().numpy().tolist(), rewards.cpu().numpy().tolist()
+        return indices.detach().cpu().numpy().tolist(), rewards.detach().cpu().numpy().tolist()
