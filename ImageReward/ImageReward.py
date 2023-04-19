@@ -9,6 +9,7 @@
 * https://github.com/christophschuhmann/improved-aesthetic-predictor
 '''
 
+import os
 import torch
 import torch.nn as nn
 from PIL import Image
@@ -80,17 +81,24 @@ class ImageReward(nn.Module):
         self.std = 1.0333394966054072
 
 
-    def score(self, prompt, image_path):
+    def score(self, prompt, image):
         
-        if (type(image_path).__name__=='list'):
-            _, rewards = self.inference_rank(prompt, image_path)
+        if (type(image).__name__=='list'):
+            _, rewards = self.inference_rank(prompt, image)
             return rewards
             
         # text encode
         text_input = self.blip.tokenizer(prompt, padding='max_length', truncation=True, max_length=35, return_tensors="pt").to(self.device)
         
         # image encode
-        pil_image = Image.open(image_path)
+        if isinstance(image, Image.Image):
+            pil_image = image
+        elif isinstance(image, str):
+            if os.path.isfile(image):
+                pil_image = Image.open(image)
+        else:
+            raise TypeError(r'This image parameter type has not been supportted yet. Please pass PIL.Image or file path str.')
+            
         image = self.preprocess(pil_image).unsqueeze(0).to(self.device)
         image_embeds = self.blip.visual_encoder(image)
         
@@ -115,10 +123,15 @@ class ImageReward(nn.Module):
         text_input = self.blip.tokenizer(prompt, padding='max_length', truncation=True, max_length=35, return_tensors="pt").to(self.device)
         
         txt_set = []
-        for generations in generations_list:
+        for generation in generations_list:
             # image encode
-            img_path = generations
-            pil_image = Image.open(img_path)
+            if isinstance(generation, Image.Image):
+                pil_image = generation
+            elif isinstance(generation, str):
+                if os.path.isfile(generation):
+                    pil_image = Image.open(generation)
+            else:
+                raise TypeError(r'This image parameter type has not been supportted yet. Please pass PIL.Image or file path str.')
             image = self.preprocess(pil_image).unsqueeze(0).to(self.device)
             image_embeds = self.blip.visual_encoder(image)
             
