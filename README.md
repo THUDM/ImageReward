@@ -140,6 +140,14 @@ https://user-images.githubusercontent.com/98524878/233889490-5c4a062f-bb5e-4179-
     <img src="https://user-images.githubusercontent.com/98524878/233829640-12190bff-f62b-4160-b05d-29624fa83677.jpg" width="700px">
 </p>
 
+#### Other Features
+
+##### Memory Management
+
+- ImageReward model will not be loaded **until first script run**.
+- **"Reload UI"** will not reload the model nor unload it, but **reuse**s the currently loaded model (if it exists).
+- A **"Unload Model"** button is provided to manually unload the currently loaded model.
+
 ## Reproduce Experiments in Table 2
 
 <p align="center">
@@ -165,7 +173,7 @@ TODO
 
 ```
 @misc{xu2023imagereward,
-      title={ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation}, 
+      title={ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation},
       author={Jiazheng Xu and Xiao Liu and Yuchen Wu and Yuxuan Tong and Qinkai Li and Ming Ding and Jie Tang and Yuxiao Dong},
       year={2023},
       eprint={2304.05977},
