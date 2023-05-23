@@ -89,15 +89,14 @@ rewards = [[0.5811622738838196], [0.2745276093482971], [-1.4131819009780884], [-
 
 We have developed a **custom script** to integrate ImageReward into SD Web UI for a convenient experience.
 
-The script is located at [`demo/sdwebui/image_reward.py`](demo/sdwebui/image_reward.py) in this repository.
+The script is located at [`sdwebui/image_reward.py`](sdwebui/image_reward.py) in this repository.
 
 The **usage** of the script is described as follows:
 
-1. **Dependency**: [`pip install image-reward`](https://pypi.org/project/image-reward/)
-2. **Install**: put the custom script into the [`stable-diffusion-webui/scripts/`](https://github.com/AUTOMATIC1111/stable-diffusion-webui/tree/master/scripts) directory
-3. **Reload**: restart the service, or click the **"Reload custom script"** button at the bottom of the settings tab of SD Web UI. (If the button can't be found, try clicking the **"Show all pages"** button at the bottom of the left sidebar.)
-4. **Select**: go back to the **"txt2img"/"img2img"** tab, and select **"ImageReward - generate human preference scores"** from the "**Script"** dropdown menu in the lower left corner.
-5. **Run**: the specific usage varies depending on the functional requirements, as described in the **"Features"** section below.
+1. **Install**: put the custom script into the [`stable-diffusion-webui/scripts/`](https://github.com/AUTOMATIC1111/stable-diffusion-webui/tree/master/scripts) directory
+2. **Reload**: restart the service, or click the **"Reload custom script"** button at the bottom of the settings tab of SD Web UI. (If the button can't be found, try clicking the **"Show all pages"** button at the bottom of the left sidebar.)
+3. **Select**: go back to the **"txt2img"/"img2img"** tab, and select **"ImageReward - generate human preference scores"** from the "**Script"** dropdown menu in the lower left corner.
+4. **Run**: the specific usage varies depending on the functional requirements, as described in the **"Features"** section below.
 
 ### Features
 
