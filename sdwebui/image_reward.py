@@ -1,21 +1,35 @@
-import modules.scripts as scripts
-import gradio as gr
+import os
+import subprocess
+import sys
+from pathlib import Path
 
+import gradio as gr
+import modules.images as images
+import modules.scripts as scripts
+import torch
+from huggingface_hub.constants import HUGGINGFACE_HUB_CACHE
 from modules import sd_samplers, shared
 from modules.processing import (
     Processed,
-    process_images,
     StableDiffusionProcessing,
     create_infotext,
+    process_images,
 )
-import modules.images as images
-from modules.shared import opts, cmd_opts, state
+from modules.shared import cmd_opts, opts, state
 
-import torch
-import os
-import sys
-from pathlib import Path
-import ImageReward as reward
+try:
+    import ImageReward as reward
+except ModuleNotFoundError as error:
+    print('"image-reward" package has not been properly installed. Installing...')
+    if subprocess.check_call(["pip", "install", "image-reward"]) == 0:
+        print(f'"image-reward" package is successfully installed!')
+        import ImageReward as reward
+    else:
+        print('"image-reward" package installation failed!')
+        print(
+            "Please open an issue with full error message at https://github.com/THUDM/ImageReward/issues"
+        )
+
 
 def unload_image_reward_model():
     del shared.image_reward_model
@@ -32,7 +46,7 @@ class Script(scripts.Script):
         with gr.Blocks():
             with gr.Row():
                 gr.Markdown(
-                    value="**Tip**: It will take a little time to **load** the ImageReward model before the first generation."
+                    value="**Tip**: It will take a little time to **load** the ImageReward model before **the first generation**."
                 )
             with gr.Row():
                 with gr.Column():
@@ -46,9 +60,8 @@ class Script(scripts.Script):
                     value="ImageReward model takes about **1,600 MB** of memory."
                 )
             with gr.Row():
-                unload_button = gr.Button(value="Unload Model")
+                unload_button = gr.Button(value="Unload Model From Memory")
                 unload_button.click(unload_image_reward_model)
-
         return [filter_out_low_scores, lower_score_limit]
 
     def run(self, p, filter_out_low_scores, lower_score_limit):
@@ -56,12 +69,13 @@ class Script(scripts.Script):
             shared.image_reward_model  # if loaded, do nothing
         except AttributeError:
             # load the model
-            # by default, it will:
-            # 1. set the device to cuda if available
-            # 2. download the model and cache it in `~/.cache/` if model is not found
-            # you can alse configure the device and cache dir by passing in the arguments
+            if sys.platform == "win32":
+                download_root = HUGGINGFACE_HUB_CACHE
+            else:
+                download_root = None
+            print(f"Loading ImageReward model from {download_root}...")
             shared.image_reward_model = reward.load(
-                "ImageReward-v1.0"
+                "ImageReward-v1.0", download_root=download_root
             )  # using shared to make the model object global among modules
 
         # preprocess parameters
@@ -73,11 +87,14 @@ class Script(scripts.Script):
 
         # score
         gens = proc.images
-        for img in gens:
-            with torch.no_grad():
+        with torch.no_grad():
+            for img in gens:
                 score = shared.image_reward_model.score(p.prompt, img)
-            img.info["score"] = score
-            img.info["parameters"] += f"\n ImageReward Score: {score:.4f}"
+                img.info["score"] = score
+                if img.info.get("parameters") is None:
+                    img.info["parameters"] = f"ImageReward Score: {score:.4f}"
+                else:
+                    img.info["parameters"] += f"\n ImageReward Score: {score:.4f}"
 
         # filter out images with scores lower than the lower limit
         if filter_out_low_scores:
