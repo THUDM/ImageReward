@@ -110,7 +110,7 @@ The **usage** of the script is described as follows:
 
 ##### Demo video:
 
-https://user-images.githubusercontent.com/98524878/233889441-d593675a-dff4-43aa-ad6b-48cc68326fb0.mp4
+https://github.com/THUDM/ImageReward/assets/98524878/9d8a036d-1583-4978-aac7-4b758edf9b89
 
 #### Automatically filter out images with low scores
 
@@ -124,7 +124,7 @@ https://user-images.githubusercontent.com/98524878/233889441-d593675a-dff4-43aa-
 
 ##### Demo video:
 
-https://user-images.githubusercontent.com/98524878/233889490-5c4a062f-bb5e-4179-ba98-b336cda4d290.mp4
+https://github.com/THUDM/ImageReward/assets/98524878/b9f01629-87d6-4c92-9990-fe065711b9c6
 
 #### View the scores of images that have been scored
 
