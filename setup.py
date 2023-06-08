@@ -10,7 +10,7 @@ DESCRIPTION = 'ImageReward'
 setup(
         name="image-reward", 
         py_modules = ["ImageReward"],
-        version="1.0",
+        version="1.3",
         author="Jiazheng Xu, et al.",
         author_email="<xjz22@mails.tsinghua.edu.cn>",
         url="https://github.com/THUDM/ImageReward",
@@ -23,6 +23,9 @@ setup(
             'transformers==4.27.4',
             'fairscale==0.4.13',
             'huggingface_hub==0.13.4',
+            'diffusers==0.16.0',
+            'accelerate==0.16.0',
+            'datasets==2.11.0',
         ],
         dependency_links = [
             "clip @ git+https://github.com/openai/CLIP.git",

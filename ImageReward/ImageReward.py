@@ -81,6 +81,25 @@ class ImageReward(nn.Module):
         self.std = 1.0333394966054072
 
 
+    def score_gard(self, prompt_ids, prompt_attention_mask, image):
+
+        image_embeds = self.blip.visual_encoder(image)
+        # text encode cross attention with image
+        image_atts = torch.ones(image_embeds.size()[:-1],dtype=torch.long).to(self.device)
+        text_output = self.blip.text_encoder(prompt_ids,
+                                                    attention_mask = prompt_attention_mask,
+                                                    encoder_hidden_states = image_embeds,
+                                                    encoder_attention_mask = image_atts,
+                                                    return_dict = True,
+                                                )
+        
+        txt_features = text_output.last_hidden_state[:,0,:] # (feature_dim)
+        rewards = self.mlp(txt_features)
+        rewards = (rewards - self.mean) / self.std
+        
+        return rewards
+
+
     def score(self, prompt, image):
         
         if (type(image).__name__=='list'):

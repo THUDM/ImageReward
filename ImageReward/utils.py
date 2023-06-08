@@ -42,7 +42,7 @@ def ImageReward_download(url: str, root: str):
     return download_target
 
 
-def load(name: str = "ImageReward-v1.0", device: Union[str, torch.device] = "cuda" if torch.cuda.is_available() else "cpu", download_root: str = None):
+def load(name: str = "ImageReward-v1.0", device: Union[str, torch.device] = "cuda" if torch.cuda.is_available() else "cpu", download_root: str = None, med_config: str = None):
     """Load a ImageReward model
 
     Parameters
@@ -72,7 +72,8 @@ def load(name: str = "ImageReward-v1.0", device: Union[str, torch.device] = "cud
     state_dict = torch.load(model_path, map_location='cpu')
     
     # med_config
-    med_config = ImageReward_download("https://huggingface.co/THUDM/ImageReward/blob/main/med_config.json", download_root or os.path.expanduser("~/.cache/ImageReward"))
+    if med_config is None:
+        med_config = ImageReward_download("https://huggingface.co/THUDM/ImageReward/blob/main/med_config.json", download_root or os.path.expanduser("~/.cache/ImageReward"))
     
     model = ImageReward(device=device, med_config=med_config).to(device)
     msg = model.load_state_dict(state_dict,strict=False)

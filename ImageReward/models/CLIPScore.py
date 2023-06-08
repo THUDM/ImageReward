@@ -30,6 +30,27 @@ class CLIPScore(nn.Module):
         self.clip_model.logit_scale.requires_grad_(False)
 
 
+    def score(self, prompt, image_path):
+        
+        if (type(image_path).__name__=='list'):
+            _, rewards = self.inference_rank(prompt, image_path)
+            return rewards
+            
+        # text encode
+        text = clip.tokenize(prompt, truncate=True).to(self.device)
+        txt_features = F.normalize(self.clip_model.encode_text(text))
+        
+        # image encode
+        pil_image = Image.open(image_path)
+        image = self.preprocess(pil_image).unsqueeze(0).to(self.device)
+        image_features = F.normalize(self.clip_model.encode_image(image))
+        
+        # score
+        rewards = torch.sum(torch.mul(txt_features, image_features), dim=1, keepdim=True)
+        
+        return rewards.detach().cpu().numpy().item()
+
+
     def inference_rank(self, prompt, generations_list):
         
         text = clip.tokenize(prompt, truncate=True).to(self.device)

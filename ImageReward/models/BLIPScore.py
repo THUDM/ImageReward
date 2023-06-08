@@ -47,6 +47,29 @@ class BLIPScore(nn.Module):
         self.blip = BLIP_Pretrain(image_size=224, vit='large', med_config=med_config)
 
 
+    def score(self, prompt, image_path):
+        
+        if (type(image_path).__name__=='list'):
+            _, rewards = self.inference_rank(prompt, image_path)
+            return rewards
+            
+        # text encode
+        text_input = self.blip.tokenizer(prompt, padding='max_length', truncation=True, max_length=35, return_tensors="pt").to(self.device)
+        text_output = self.blip.text_encoder(text_input.input_ids, attention_mask = text_input.attention_mask, mode='text')  
+        txt_feature = F.normalize(self.blip.text_proj(text_output.last_hidden_state[:,0,:]))
+        
+        # image encode
+        pil_image = Image.open(image_path)
+        image = self.preprocess(pil_image).unsqueeze(0).to(self.device)
+        image_embeds = self.blip.visual_encoder(image)
+        image_features = F.normalize(self.blip.vision_proj(image_embeds[:,0,:]), dim=-1)    
+        
+        # score
+        rewards = torch.sum(torch.mul(txt_feature, image_features), dim=1, keepdim=True)
+        
+        return rewards.detach().cpu().numpy().item()
+
+
     def inference_rank(self, prompt, generations_list):
     
         text_input = self.blip.tokenizer(prompt, padding='max_length', truncation=True, max_length=35, return_tensors="pt").to(self.device)
