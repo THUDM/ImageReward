@@ -1,7 +1,7 @@
 # ImageReward
 
 <p align="center">
-   🤗 <a href="https://huggingface.co/THUDM/ImageReward" target="_blank">HF Repo</a> • 🐦 <a href="https://twitter.com/thukeg" target="_blank">Twitter</a> • 📃 <a href="https://arxiv.org/abs/2304.05977" target="_blank">Paper</a> • 🖼 <a href="https://huggingface.co/datasets/THUDM/ImageRewardDB" target="_blank">Dataset</a> <br>
+   🤗 <a href="https://huggingface.co/THUDM/ImageReward" target="_blank">HF Repo</a> • 🐦 <a href="https://twitter.com/thukeg" target="_blank">Twitter</a> • 📃 <a href="https://arxiv.org/abs/2304.05977" target="_blank">Paper</a> • 🖼 <a href="https://huggingface.co/datasets/THUDM/ImageRewardDB" target="_blank">Dataset</a> • 🌐 <a href="https://zhuanlan.zhihu.com/p/639494251" target="_blank">中文博客</a> <br>
 </p>
 
 **ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation**
