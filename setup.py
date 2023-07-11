@@ -10,7 +10,7 @@ DESCRIPTION = 'ImageReward'
 setup(
         name="image-reward", 
         py_modules = ["ImageReward"],
-        version="1.4",
+        version="1.5",
         author="Jiazheng Xu, et al.",
         author_email="<xjz22@mails.tsinghua.edu.cn>",
         url="https://github.com/THUDM/ImageReward",

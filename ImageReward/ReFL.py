@@ -728,13 +728,13 @@ class Trainer(object):
                             latents = self.noise_scheduler.step(noise_pred, t, latents).prev_sample
                     
                     latent_model_input = latents
-                    latent_model_input = self.noise_scheduler.scale_model_input(latent_model_input, mid_timestep)
+                    latent_model_input = self.noise_scheduler.scale_model_input(latent_model_input, timesteps[mid_timestep])
                     noise_pred = self.unet(
                         latent_model_input,
-                        mid_timestep,
+                        timesteps[mid_timestep],
                         encoder_hidden_states=encoder_hidden_states,
                     ).sample
-                    pred_original_sample = self.noise_scheduler.step(noise_pred, t, latents).pred_original_sample.to(self.weight_dtype)
+                    pred_original_sample = self.noise_scheduler.step(noise_pred, timesteps[mid_timestep], latents).pred_original_sample.to(self.weight_dtype)
                     
                     pred_original_sample = 1 / self.vae.config.scaling_factor * pred_original_sample
                     image = self.vae.decode(pred_original_sample.to(self.weight_dtype)).sample
