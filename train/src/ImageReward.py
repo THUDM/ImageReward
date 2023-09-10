@@ -146,7 +146,7 @@ class ImageReward(nn.Module):
                                             encoder_attention_mask = image_atts_better,
                                             return_dict = True,
                                            ).last_hidden_state # [batch_size, seq_len, feature_dim]
-        emb_better = emb_better[:, -1, :].float()
+        emb_better = emb_better[:, 0, :].float()
         
         # encode worse emb
         image_embeds_worse = self.blip.visual_encoder(img_worse)
@@ -157,7 +157,7 @@ class ImageReward(nn.Module):
                                             encoder_attention_mask = image_atts_worse,
                                             return_dict = True,
                                            ).last_hidden_state
-        emb_worse = emb_worse[:, -1, :].float()
+        emb_worse = emb_worse[:, 0, :].float()
         
         # get batch data
         batch_data = {
