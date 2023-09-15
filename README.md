@@ -53,16 +53,17 @@ If you find `ImageReward`'s open-source effort useful, please 🌟 us to encoura
   - [Integration into Stable Diffusion Web UI](#integration-into-stable-diffusion-web-ui)
     - [Features](#features)
       - [Score generated images and append to image information](#score-generated-images-and-append-to-image-information)
-        - [Usage:](#usage)
-        - [Demo video:](#demo-video)
+        - [Usage](#usage)
+        - [Demo video](#demo-video)
       - [Automatically filter out images with low scores](#automatically-filter-out-images-with-low-scores)
-        - [Usage:](#usage-1)
-        - [Demo video:](#demo-video-1)
+        - [Usage](#usage-1)
+        - [Demo video](#demo-video-1)
       - [View the scores of images that have been scored](#view-the-scores-of-images-that-have-been-scored)
-        - [Usage:](#usage-2)
-        - [Example:](#example)
+        - [Usage](#usage-2)
+        - [Example](#example)
       - [Other Features](#other-features)
         - [Memory Management](#memory-management)
+    - [FAQ](#faq)
   - [Reproduce Experiments in Table 1](#reproduce-experiments-in-table-1)
   - [Reproduce Experiments in Table 3](#reproduce-experiments-in-table-3)
   - [Citation](#citation)
@@ -186,19 +187,19 @@ The **usage** of the script is described as follows:
 
 #### Score generated images and append to image information
 
-##### Usage:
+##### Usage
 
 1. **Do not** check the "Filter out images with low scores" checkbox.
 2. Click the **"Generate"** button to generate images.
 3. Check the ImageReward at the **bottom** of the image information **below the gallery**.
 
-##### Demo video:
+##### Demo video
 
 https://github.com/THUDM/ImageReward/assets/98524878/9d8a036d-1583-4978-aac7-4b758edf9b89
 
 #### Automatically filter out images with low scores
 
-##### Usage:
+##### Usage
 
 1. Check the **"Filter out images with low scores"** checkbox.
 2. Enter the score lower limit in **"Lower score limit"**. (ImageReward roughly follows the standard normal distribution, with a mean of 0 and a variance of 1.)
@@ -206,18 +207,18 @@ https://github.com/THUDM/ImageReward/assets/98524878/9d8a036d-1583-4978-aac7-4b7
 4. Images with scores below the lower limit will be automatically filtered out and **will not appear in the gallery**.
 5. Check the ImageReward at the **bottom** of the image information **below the gallery**.
 
-##### Demo video:
+##### Demo video
 
 https://github.com/THUDM/ImageReward/assets/98524878/b9f01629-87d6-4c92-9990-fe065711b9c6
 
 #### View the scores of images that have been scored
 
-##### Usage:
+##### Usage
 
 1. Upload the scored image file in the **"PNG Info"** tab
 2. Check the image information on the right with the score of the image at the **bottom**.
 
-##### Example:
+##### Example
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/98524878/233829640-12190bff-f62b-4160-b05d-29624fa83677.jpg" width="700px">
@@ -230,6 +231,19 @@ https://github.com/THUDM/ImageReward/assets/98524878/b9f01629-87d6-4c92-9990-fe0
 - ImageReward model will not be loaded **until first script run**.
 - **"Reload UI"** will not reload the model nor unload it, but **reuse**s the currently loaded model (if it exists).
 - A **"Unload Model"** button is provided to manually unload the currently loaded model.
+
+### FAQ
+
+#### How to adjust the Python environment used by the SD Web UI (e.g. reinstall a package)?
+
+Note that **SD Web UI has two ways to set up its Python environment**:
+
+- If you **launch with `python launch.py`**, Web UI will use the Python environment **found in your `PATH` (in Linux, you can check its exact path with `which python`)**.
+- If you **launch with a script like `webui-user.bat`**, Web UI creates a new **venv environment** in the directory `stable-diffusion-webui\venv`.
+    - Generally, you need some other operations to activate this environment. For example, in Windows, you need to enter the `stable-diffusion-webui\venv\Scripts` directory, run `activate` or `activate.bat` (if you are using **cmd**) or `activate.ps1` (if you are using **PowerShell**) from .
+    - If you see **the prompt `(venv)` appear at the far left of the command line**, you have successfully activated venv created by the SD Web UI.
+
+After activating the right Python environment, just do what you want to do true to form.
 
 ## Reproduce Experiments in Table 1
 
