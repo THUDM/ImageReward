@@ -6,7 +6,7 @@
 
 **ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation**
 
-**News!** The paper of ImageReward is accepted by NeurIPS 2023!
+🔥**News!** The paper of ImageReward is accepted by NeurIPS 2023!
 
 ImageReward is the first general-purpose text-to-image human preference RM, which is trained on in total **137k pairs of expert comparisons**, outperforming existing text-image scoring methods, such as CLIP (by 38.6%), Aesthetic (by 39.6%), and BLIP (by 31.6%), in terms of understanding human preference in text-to-image synthesis.
 
