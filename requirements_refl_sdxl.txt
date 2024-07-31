@@ -1,0 +1,8 @@
+timm==0.6.13
+transformers==4.38.1
+fairscale==0.4.13
+huggingface_hub==0.21.0
+clip @ git+https://github.com/openai/CLIP.git
+diffusers==0.26.3
+accelerate==0.27.2
+datasets==2.11.0
