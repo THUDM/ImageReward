@@ -20,9 +20,9 @@ setup(
         packages=find_packages(exclude=["tests*"]),
         install_requires=[
             'clip@https://github.com/openai/CLIP/archive/refs/heads/main.zip#egg=clip-1.0',
-            'timm==0.6.13',
+            'timm>=0.6.13',
             'transformers>=4.27.4',
-            'fairscale==0.4.13',
+            'fairscale>=0.4.13',
             'huggingface_hub>=0.13.4',
             'diffusers>=0.16.0',
             'accelerate>=0.16.0',
