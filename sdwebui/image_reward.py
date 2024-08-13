@@ -91,10 +91,15 @@ class Script(scripts.Script):
             for img in gens:
                 score = shared.image_reward_model.score(p.prompt, img)
                 img.info["score"] = score
+                msg = f"ImageReward Score: {score:.4f}"
                 if img.info.get("parameters") is None:
-                    img.info["parameters"] = f"ImageReward Score: {score:.4f}"
+                    img.info["parameters"] = msg
                 else:
-                    img.info["parameters"] += f"\n ImageReward Score: {score:.4f}"
+                    img.info["parameters"] += "\n " + msg
+                if getattr(proc, 'info', None) is None:
+                    setattr(proc, 'info', msg)
+                else:
+                    proc.info += "\n " + msg
 
         # filter out images with scores lower than the lower limit
         if filter_out_low_scores:
