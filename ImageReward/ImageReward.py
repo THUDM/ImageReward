@@ -112,9 +112,8 @@ class ImageReward(nn.Module):
         # image encode
         if isinstance(image, Image.Image):
             pil_image = image
-        elif isinstance(image, str):
-            if os.path.isfile(image):
-                pil_image = Image.open(image)
+        elif isinstance(image, str) and os.path.isfile(image):
+            pil_image = Image.open(image)
         else:
             raise TypeError(r'This image parameter type has not been supportted yet. Please pass PIL.Image or file path str.')
             
