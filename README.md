@@ -4,9 +4,11 @@
    📃 <a href="https://arxiv.org/abs/2304.05977" target="_blank">Paper</a> • 🖼 <a href="https://huggingface.co/datasets/THUDM/ImageRewardDB" target="_blank">Dataset</a> • 🌐 <a href="https://zhuanlan.zhihu.com/p/639494251" target="_blank">中文博客</a> • 🤗 <a href="https://huggingface.co/THUDM/ImageReward" target="_blank">HF Repo</a> • 🐦 <a href="https://twitter.com/thukeg" target="_blank">Twitter</a> <br>
 </p>
 
-**ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation**
+🔥🔥 **News!** ```2024/12/31```: We released the **next generation of model, [VisionReward](https://github.com/THUDM/VisionReward)**, which is a fine-grained and multi-dimensional reward model for stable RLHF for visual generation (text-to-image / text-to-video)!
 
-🔥**News!** The paper of ImageReward is accepted by NeurIPS 2023!
+🔥 **News!** ```2023/9/22```: The paper of ImageReward is accepted by NeurIPS 2023!
+
+**ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation**
 
 ImageReward is the first general-purpose text-to-image human preference RM, which is trained on in total **137k pairs of expert comparisons**, outperforming existing text-image scoring methods, such as CLIP (by 38.6%), Aesthetic (by 39.6%), and BLIP (by 31.6%), in terms of understanding human preference in text-to-image synthesis.
 
