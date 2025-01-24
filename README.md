@@ -296,12 +296,11 @@ If you want to check the raw data files individually:
 ## Citation
 
 ```
-@misc{xu2023imagereward,
-      title={ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation},
-      author={Jiazheng Xu and Xiao Liu and Yuchen Wu and Yuxuan Tong and Qinkai Li and Ming Ding and Jie Tang and Yuxiao Dong},
-      year={2023},
-      eprint={2304.05977},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@inproceedings{xu2023imagereward,
+  title={ImageReward: learning and evaluating human preferences for text-to-image generation},
+  author={Xu, Jiazheng and Liu, Xiao and Wu, Yuchen and Tong, Yuxuan and Li, Qinkai and Ding, Ming and Tang, Jie and Dong, Yuxiao},
+  booktitle={Proceedings of the 37th International Conference on Neural Information Processing Systems},
+  pages={15903--15935},
+  year={2023}
 }
 ```
